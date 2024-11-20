@@ -82,11 +82,23 @@ vector<int> LinkedListStack::stackToVector()
 
     for (int i = stackSize - 1; i >= 0; i--)
     {
-        res.push_back(stackNode->val);
+        // 为何此处不实用push，一试便知
+        //res.push_back(stackNode->val);
+        res[i] = stackNode->val;
         stackNode = stackNode->next;
     }
 
     return res;
+}
+
+void printVector(vector<int> vec)
+{
+    cout << "[";
+    for (const auto &num : vec)
+    {
+        cout << num << ",";
+    }
+    cout << "]" << endl;
 }
 
 int main()
@@ -99,6 +111,22 @@ int main()
     myStack->push(2);
     myStack->push(5);
     myStack->push(4);
+
+    vector<int> stack2vec = myStack->stackToVector();
+
+    printVector(stack2vec);
+
+    int top;
+    myStack->top(&top);
+    cout << "stack top = " << top << endl;
+
+    int size = myStack->getSize();
+    cout << "stack size = " << size << endl;
+
+    bool empty = myStack->isEmpty();
+    cout << "stack is empty = " << empty << endl;
+
+    delete myStack;
 
     return 0;
 }
