@@ -83,7 +83,7 @@ vector<int> LinkedListStack::stackToVector()
     for (int i = stackSize - 1; i >= 0; i--)
     {
         // 为何此处不实用push，一试便知
-        //res.push_back(stackNode->val);
+        // res.push_back(stackNode->val);
         res[i] = stackNode->val;
         stackNode = stackNode->next;
     }
@@ -91,15 +91,16 @@ vector<int> LinkedListStack::stackToVector()
     return res;
 }
 
-void printVector(vector<int> vec)
-{
-    cout << "[";
-    for (const auto &num : vec)
-    {
-        cout << num << ",";
-    }
-    cout << "]" << endl;
-}
+// 已废弃，被同名模版函数替换
+// void printVector(vector<int> vec)
+// {
+//     cout << "[";
+//     for (const auto &num : vec)
+//     {
+//         cout << num << ",";
+//     }
+//     cout << "]" << endl;
+// }
 
 int main()
 {
@@ -112,13 +113,17 @@ int main()
     myStack->push(5);
     myStack->push(4);
 
-    vector<int> stack2vec = myStack->stackToVector();
-
-    printVector(stack2vec);
+    // vector<int> stack2vec = myStack->stackToVector();
+    cout << "stack = ";
+    printVector(myStack->stackToVector());
 
     int top;
     myStack->top(&top);
     cout << "stack top = " << top << endl;
+
+    top = myStack->pop();
+    cout << "stack pop = " << top << ", stack after  = ";
+    printVector(myStack->stackToVector());
 
     int size = myStack->getSize();
     cout << "stack size = " << size << endl;
