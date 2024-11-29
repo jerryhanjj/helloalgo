@@ -24,6 +24,8 @@ public:
     void pushLast(int num);
     int popFirst();
     int popLast();
+    int peekFirst();
+    int peekLast();
     vector<int> queToVector();
 
 private:
@@ -103,6 +105,16 @@ int LinkedListDeque::popLast()
     return pop(false);
 }
 
+int LinkedListDeque::peekFirst()
+{
+    return head->val;
+}
+
+int LinkedListDeque::peekLast()
+{
+    return rear->val;
+}
+
 vector<int> LinkedListDeque::queToVector()
 {
     DoublyListNode *node = head;
@@ -131,10 +143,9 @@ int LinkedListDeque::pop(bool isFront)
 
         node = head;
         head = head->next;
+        head->prev = nullptr;
         node->next = nullptr;
         node->prev = nullptr;
-
-        delete node;
 
         if (getSize() == 1)
         {
@@ -148,10 +159,9 @@ int LinkedListDeque::pop(bool isFront)
 
         node = rear;
         rear = rear->prev;
+        rear->next = nullptr;
         node->prev = nullptr;
         node->next = nullptr;
-
-        delete node;
 
         if (getSize() == 1)
         {
@@ -160,7 +170,9 @@ int LinkedListDeque::pop(bool isFront)
         }
     }
 
+    delete node;
     queSize--;
+
     return val;
 }
 
@@ -173,6 +185,39 @@ int main()
     deque->pushLast(5);
     cout << "deque = ";
     printVector(deque->queToVector());
+
+    /* 访问元素 */
+    int peekFirst = deque->peekFirst();
+    cout << "deque peekFirst = " << peekFirst << endl;
+    int peekLast = deque->peekLast();
+    cout << "deque peekLast = " << peekLast << endl;
+
+    /* 元素入队 */
+    deque->pushLast(4);
+    cout << "elem 4 push last, deque =";
+    printVector(deque->queToVector());
+    deque->pushFirst(1);
+    cout << "elem 1 push first, deque = ";
+    printVector(deque->queToVector());
+
+    /* 元素出队 */
+    int popLast = deque->popLast();
+    cout << "pop last = " << popLast << ", deque = ";
+    printVector(deque->queToVector());
+    int popFirst = deque->popFirst();
+    cout << "pop first = " << popFirst << ", deque = ";
+    printVector(deque->queToVector());
+
+    /* 获取双向队列的长度 */
+    int size = deque->getSize();
+    cout << "deque size = " << size << endl;
+
+    /* 判断双向队列是否为空 */
+    bool isEmpty = deque->isEmpty();
+    cout << "deque is empty = " << boolalpha << isEmpty << endl;
+
+    // 释放内存
+    delete deque;
 
     return 0;
 }
