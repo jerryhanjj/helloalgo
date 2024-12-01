@@ -25,4 +25,12 @@ void freeMemoryLinkedList(ListNode *head)
     }
 }
 
+struct DoublyListNode
+{
+    int val;
+    DoublyListNode *prev; // 前驱结点指针
+    DoublyListNode *next; // 后继结点指针
+    DoublyListNode(int x) : val(x), prev(nullptr), next(nullptr) {}
+};
+
 #endif
