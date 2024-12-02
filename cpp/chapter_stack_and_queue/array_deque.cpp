@@ -93,7 +93,10 @@ int ArrayDeque::popFirst()
 
 int ArrayDeque::popLast()
 {
-    return 0;
+    int lastVal = peekLast();
+    // 因为尾节点索引是通过queSize算出来的，所以无需修改尾节点的值
+    queSize--;
+    return lastVal;
 }
 
 int ArrayDeque::peekFirst()
@@ -103,7 +106,8 @@ int ArrayDeque::peekFirst()
 
 int ArrayDeque::peekLast()
 {
-    return nums[head + queSize - 1];
+    int last = index(head + queSize - 1);
+    return nums[last];
 }
 
 vector<int> ArrayDeque::queToVector()
